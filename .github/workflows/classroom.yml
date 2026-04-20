@@ -44,7 +44,7 @@ jobs:
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         RANDOM-GUESS_RESULTS: "${{steps.random-guess.outputs.result}}"
-        BAYESIAAN-INFERENCE_RESULTS: "${{steps.bayesian-inference.outputs.result}}"
+        BAYESIAN-INFERENCE_RESULTS: "${{steps.bayesian-inference.outputs.result}}"
         BENCHMARK-ACCURACY_RESULTS: "${{steps.benchmark-accuracy.outputs.result}}"
       with:
-        runners: random-guess,bayesiaan-inference,benchmark-accuracy
+        runners: random-guess,bayesian-inference,benchmark-accuracy
