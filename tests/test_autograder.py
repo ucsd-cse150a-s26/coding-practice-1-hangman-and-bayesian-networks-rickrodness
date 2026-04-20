@@ -67,6 +67,18 @@ def _load_notebook_namespace() -> dict:
 
     ns: dict = {"__name__": "__student_notebook__"}
 
+    # Patterns on a line that mean "skip this line": interactive demo calls,
+    # Colab-only imports, shell/magic commands. We want to extract FUNCTION
+    # DEFINITIONS from the notebook, not execute every demo the student left
+    # in the cells.
+    SKIP_LINE_SUBSTRINGS = (
+        "hangman_game(",   # interactive game demo - reads stdin, hangs tests
+        "google.colab",    # Colab-only imports
+        "drive.mount",     # Colab drive mount
+        "files.upload",    # Colab file upload
+        "input(",          # any raw_input prompt
+    )
+
     for idx, cell in enumerate(nb.cells):
         if cell.cell_type != "code":
             continue
@@ -75,6 +87,11 @@ def _load_notebook_namespace() -> dict:
             stripped = line.lstrip()
             if stripped.startswith(("!", "%")):
                 continue  # drop shell / magic commands
+            if any(s in line for s in SKIP_LINE_SUBSTRINGS):
+                # Replace with a pass-through so indentation stays valid
+                # (in case the line was inside a function or block).
+                source_lines.append(" " * (len(line) - len(stripped)) + "pass  # skipped by autograder")
+                continue
             source_lines.append(line)
         source = "\n".join(source_lines)
         if not source.strip():
