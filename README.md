@@ -1,4 +1,4 @@
-# Hangman
+# Hangman 
 
 Consider the belief network shown below, where the random variable $W$ stores a five-letter word and the random variable $L_i \in \{\texttt{A}, \texttt{B}, \ldots, \texttt{Z}\}$ reveals only the word’s $i$th letter. Suppose that these five-letter words are chosen at random from a large corpus of text according to their frequency:
 
