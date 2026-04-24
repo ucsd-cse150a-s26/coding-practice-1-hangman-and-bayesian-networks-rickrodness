@@ -28,7 +28,7 @@ jobs:
       with:
         test-name: Bayesian inference
         setup-command: pip install -r tests/requirements-autograder.txt
-        command: pytest tests/test_autograder.py::test_bayesian_inference -v
+        command: pytest tests/test_autograder.py::test_bayesiaan_inference -v
         timeout: 10
         max-score: 8
     - name: Benchmark accuracy
